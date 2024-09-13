@@ -255,6 +255,7 @@ function snakeDirection(e) {
   }
   if(e.key === 's') {
     clearInterval(IntervalId);
+    gameOverText.classList.remove('visible'); //*
     for (let i = 0; i < score; i++) {
       snake.pop();
     }
@@ -340,7 +341,7 @@ function snakeFoodCollision(snakeX, snakeY) {
     snake.pop();
   }
 }
-
+const gameOverText = document.querySelector('.gameOverText');
 function gameOverCollisions(snakeX, snakeY) {
   snakeWallCollision(snakeX, snakeY);
   snakeBugCollision(snakeX, snakeY);
@@ -349,11 +350,20 @@ function gameOverCollisions(snakeX, snakeY) {
     if(gameStart) {
       d = '';
       gameOver = true;
-      ctx.fillStyle = 'red';
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'alphabetic';
-      ctx.font = '65px Fredoka-One';
-      ctx.fillText('GAME OVER', 9.5 * box, 10 * box);
+      gameOverText.classList.add('visible');
+      if(innerWidth < 951) {
+        ctx.save();
+        ctx.fillStyle = 'red';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'alphabetic';
+        ctx.font = '65px Fredoka-One';
+        ctx.fillText('GAME OVER', 9.5 * box, 10 * box);
+        ctx.globalAlpha = 0;
+        ctx.restore();
+        ctx.save();
+        ctx.globalAlpha = 1;
+        ctx.restore();
+      }
       clearInterval(IntervalId);
       wallLostAudio();
       // setTimeout(() => {  // auto reload // 

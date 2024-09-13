@@ -57,6 +57,19 @@ body {
   .btn-unit, .monster {
     display: none;
   }
+  .gameOverText {
+    position: fixed;
+    top: 493px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family:'Fredoka-One';
+    color: #ff0000e6;
+    font-size: 65px;
+    visibility: hidden;
+    &.visible {
+      visibility: visible;
+    }
+  }
   .msg {
     font-family: 'Fredoka-One';
     position: absolute;
@@ -66,7 +79,6 @@ body {
     display: block;
     color: #0af;
     font-size: 2em;
-    
     text-transform: uppercase;
   }
   .guide {
@@ -80,6 +92,9 @@ body {
 
 @media (max-width: 951px) {
   .msg, .guide {
+    display: none;
+  }
+  .gameOverText {
     display: none;
   }
 }
