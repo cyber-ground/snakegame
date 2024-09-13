@@ -1,0 +1,145 @@
+@charset "utf-8";
+
+*, *::before, *::after { 
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  line-height: 1;
+  vertical-align: baseline;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+*:not(summary) { 
+  list-style-type: none;
+}
+
+svg, img, embed, object, iframe {
+  vertical-align: bottom;
+}
+
+b, strong {
+  font-weight: bolder;
+}
+small {
+  font-size: 80%;
+}
+
+sub, sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+}
+sub {
+  bottom: -0.25em;
+}
+sup {
+  top: -0.5em;
+}
+
+/* input ------------------ */
+
+label[for] {
+  cursor: pointer;
+}
+
+[type="text"],
+[type="email"],
+[type="password"],
+[type="url"],
+[type="tel"],
+[type="number"], 
+[type="search"] {
+  text-indent: 3px;
+}
+
+[type="submit"], 
+[type="radio"], 
+[type="checkbox"], 
+[type="range"], 
+[type="file"], 
+[type="color"], 
+[type="reset"], 
+[type="time"], 
+[type="date"], 
+[type="week"], 
+[type="month"], 
+[type="datetime-local"] {
+  cursor: pointer;
+}
+
+[type="number"]::-webkit-inner-spin-button,
+[type="number"]::-webkit-outer-spin-button {
+  height: auto;
+}
+
+/* button ------------------ */
+
+button,
+[type="button"],
+[type="reset"],
+[type="submit"] {
+  cursor: pointer;
+}
+
+button:disabled,
+[type="button"]:disabled,
+[type="reset"]:disabled,
+[type="submit"]:disabled {
+  cursor: default;
+}
+
+
+/* details ------------------ */
+
+details {
+  cursor: pointer;
+}
+
+/* Chrome、Safari -------------*/
+
+/* summary::-webkit-details-marker {
+  display: none;
+} */
+
+/* Firefox、other */
+
+/* summary {
+  display: block;
+}  */
+
+
+/* other ------------------ */
+
+select:disabled {
+  opacity: inherit;
+}
+
+progress {
+  vertical-align: baseline;
+}
+
+textarea {
+  overflow: auto;
+}
+
+address {
+  font-style: inherit;
+}
+
+/* abbr[title] {
+  text-decoration: underline dotted; 
+} */
+
+/* --------------------------------------- */
+
+
+
+
+
+
+
+

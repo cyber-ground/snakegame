@@ -1,20 +1,19 @@
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-size: 100%;
-  font: inherit;
-  line-height: 1;
-  vertical-align: baseline;
-  list-style-type: none;
-  user-select: none;
+@font-face {
+  font-family: "Verdana";
+  src: local("Verdana"), url("font/Verdana.ttf") format("truetype");
+  font-display: swap;
 }
-
+@font-face {
+  font-family: "Fredoka-One";
+  src: local("Fredoka One"), local("Fredoka-One"), url("font/Fredoka-One.ttf") format("truetype");
+  font-display: swap;
+}
 body {
+  font-family: "Fredoka-One";
   background-color: #333;
-  background-color: #c5f23f;
+  background-color: rgb(197, 242, 63);
   background-color: rgba(31, 172, 237, 0.214);
+  overflow: hidden;
 }
 
 @media (min-width: 416px) {
@@ -30,9 +29,9 @@ body {
     margin: 20px auto;
   }
 }
-
-@media (min-width: 810px) {
+@media (min-width: 951px) {
   #canvas {
+    font-family: "Fredoka-One";
     display: block;
     width: 950px;
     height: 950px;
@@ -43,8 +42,28 @@ body {
   .btn-unit, .monster {
     display: none;
   }
+  .msg {
+    position: absolute;
+    top: 90px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: block;
+    color: #0af;
+    font-size: 2em;
+    text-transform: uppercase;
+  }
+  .guide {
+    text-align: center;
+    color: #0af;
+    font-size: 2em;
+    text-transform: uppercase;
+  }
 }
-
+@media (max-width: 951px) {
+  .msg, .guide {
+    display: none;
+  }
+}
 @media (max-width: 415px) {
   #canvas {
     display: block;
@@ -60,7 +79,7 @@ body {
     width: 100px;
     height: 50px;
     color: red;
-    background-color: #c4c4c4;
+    background-color: rgb(196, 196, 196);
     border: 3px solid red;
     margin: 10px 5px;
     border-radius: 10px;

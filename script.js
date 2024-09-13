@@ -18,8 +18,8 @@
 //     const foodImg = new Image();
 //     foodImg.src = 'img/Happy Lemon.svg';
 
-    // const sound = new Audio();
-    // sound.src = 'audio/'; sound.play();
+  // const sound = new Audio();
+  // sound.src = 'audio/'; sound.play();
 
 // class Ground {
 //   constructor() {
@@ -86,12 +86,12 @@
 // }
 // const ground = new Ground();
 
-// ----------------------------------------------------------------------------------------------------
-// constant variable ---
+// ------------------------------------------------------------------------------------------------
+//* constant variable ---
 
 const canvas = document.getElementById('canvas');
   const ctx = canvas.getContext('2d');
-  // image ---
+  //* image ---
     const displayFoodImg = new Image();
       displayFoodImg.src = 'img/Chicken.svg';
       const foodImg = new Image();
@@ -101,7 +101,7 @@ const canvas = document.getElementById('canvas');
       const bugImg = new Image();
         // bugImg.src = 'img/dinosaur.svg';
         bugImg.src = 'img/Fibonacci monster.svg';
-  // audio ---
+  //* audio ---
     const bugLostSound = new Audio();
       bugLostSound.src = 'audio/bugLost.mp3'
       const wallLostSound = new Audio();
@@ -112,8 +112,7 @@ const canvas = document.getElementById('canvas');
   const data = [];
     const box = 50;
 
-
-// create data --------------------------------------------
+//* create data --------------------------------------------
 
 function createData() {
   for (let row = 0; row < 19; row++) {
@@ -168,7 +167,7 @@ function drawGround() {
   }
 }
 
-// place character ---------------------------------------------------------------
+//* place character -------------------------------
 
 let snake = [];
   let food, bug;
@@ -213,7 +212,8 @@ function placeCharacter() {
   }
 } placeCharacter();
 
-// update -------------------------------------------------
+//* update -------------------------------------------------
+
 function update() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   drawGround();
@@ -223,11 +223,11 @@ function update() {
 }
 update();
 
-console.log('food   ' + food.x);
-console.log('bug   ' + bug.x);
-console.log('snake  ' + snake[0].x);
+// console.log('food   ' + food.x);
+// console.log('bug   ' + bug.x);
+// console.log('snake  ' + snake[0].x);
 
-// event --------------------------------------------------
+//* event ---------------------------------------------------
 
 document.addEventListener('keydown', snakeDirection);
 function snakeDirection(e) {
@@ -280,7 +280,7 @@ function snakeDirection(e) {
   }
 }
 
-//----------------------------------------------------------
+//* -------------------------------------------------------------------
 
 function drawCharacter() {
   // draw displayFood & score
@@ -290,14 +290,14 @@ function drawCharacter() {
     ctx.textBaseline = 'bottom';
     ctx.font = '45px Verdana';
     ctx.fillText(score, 3 * box, 1.5 * box);
-    // draw food & bug
+    //* draw food & bug
   ctx.drawImage(foodImg, food.x, food.y, box, box);
-  // ctx.drawImage(bugImg, bug.x, bug.y, box + 10, box);  // dinosaur
   ctx.drawImage(bugImg, bug.x, bug.y, box, box);          // monster
+  // ctx.drawImage(bugImg, bug.x, bug.y, box + 10, box);  // dinosaur
   // draw snake
   for (let i = 0; i < snake.length; i++) {
+    ctx.drawImage(snakeImg, snake[i].x, snake[i].y, box, box);
   // ctx.fillStyle = (i === 0) ? 'green' : 'white'; // *
-  ctx.drawImage(snakeImg, snake[i].x, snake[i].y, box, box);
   // ctx.beginPath();
   // ctx.arc(snake[i].x, snake[i].y, 25, 0, 2 * Math.PI);
   // ctx.fill();
@@ -309,15 +309,15 @@ function drawCharacter() {
 }
 
 function snakeMovement() {
-  // old head position
+  //* old head position
   let snakeX = snake[0].x;
   let snakeY = snake[0].y;
-  // which direction
+  //* which direction
     if(d === 'RIGHT') {snakeX += box / 4}
     if(d === 'DOWN') {snakeY += box / 4}
     if(d === 'LEFT') {snakeX -= box / 4}
     if(d === 'UP') {snakeY -= box / 4}
-  // snake food collision
+  //* snake food collision
   let newHead = {
     x: snakeX,
     y: snakeY,
@@ -352,7 +352,7 @@ function gameOverCollisions(snakeX, snakeY) {
       ctx.fillStyle = 'red';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'alphabetic';
-      ctx.font = '65px Verdana';
+      ctx.font = '65px Fredoka-One';
       ctx.fillText('GAME OVER', 9.5 * box, 10 * box);
       clearInterval(IntervalId);
       wallLostAudio();
@@ -360,7 +360,7 @@ function gameOverCollisions(snakeX, snakeY) {
       //   window.location.reload();
       // }, 3000);
     }
-  } // wall stop game over
+  } //* wall stop game over
 }
 
 function snakeWallCollision(snakeX, snakeY) {
@@ -382,7 +382,7 @@ function snakeBugCollision(snakeX, snakeY) {
     gameOver = true;
     clearInterval(IntervalId);
     bugLostAudio();
-  } // bug game over //
+  } //* bug game over //
 }
 
 
@@ -404,7 +404,7 @@ function bugLostAudio() {
 }
 
 
-// ----------------------------------------------------------------------------------------------------
+//* --------------------------------------------------------------------------------
 
   const btns = document.querySelectorAll('.btn');
   btns.forEach(btn => {
@@ -412,24 +412,19 @@ function bugLostAudio() {
       gameStart = true;
       if(!gameOver) {
         if(btn.classList.contains('btn-top') && d !== 'DOWN') {
-          console.log('hi-top');
           d = 'UP';
         }
         if(btn.classList.contains('btn-left') && d !== 'RIGHT') {
-          console.log('hi-left');
           d = 'LEFT';
         }
         if(btn.classList.contains('btn-right') && d !== 'LEFT') {
-          console.log('hi-right');
           d = 'RIGHT';
         }
         if(btn.classList.contains('btn-bottom') && d !== 'UP') {
-          console.log('hi-bottom');
           d = 'DOWN';
         }
       }
       if(btn.classList.contains('btn-replay')) {
-        console.log('hi-replay');
         window.location.reload();
       }
     });
@@ -439,6 +434,7 @@ console.log(btns);
 
 
 
+// ----------------------------------------------------------------------------------------------------
 
 
 
