@@ -178,6 +178,7 @@ let snake = [];
       let gameOver = false;
     let gameStart = false;
   let lostSound = false;
+  let restart = false;
 
 function placeCharacter() {
   do {
@@ -212,7 +213,7 @@ function placeCharacter() {
   }
 } placeCharacter();
 
-//* update -------------------------------------------------
+//* update requestAnimationFrame --------------------------
 
 function update() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -228,7 +229,7 @@ update();
 // console.log('snake  ' + snake[0].x);
 
 //* event ---------------------------------------------------
-
+let isReplay = false;
 document.addEventListener('keydown', snakeDirection);
 function snakeDirection(e) {
   if(e.key !== 'ArrowRight'  // return keys not collect //
@@ -236,50 +237,43 @@ function snakeDirection(e) {
     && e.key !== 'ArrowUp' 
     && e.key !== 'ArrowDown' 
     && e.key !== 's') return;  
-
-  gameStart = true;
   if(!gameOver) {
     setTimeout(() => {lostSound = false}, 500);
     if(e.key === 'ArrowRight' && d !== 'LEFT') { // *
-      d = 'RIGHT';
+      d = 'RIGHT'; gameStart = true; isReplay = true;
     }
     if(e.key === 'ArrowLeft' && d !== 'RIGHT') {
-      d = 'LEFT';
+      d = 'LEFT'; gameStart = true; isReplay = true;
     }
     if(e.key === 'ArrowUp' && d !== 'DOWN') {
-      d = 'UP';
+      d = 'UP'; gameStart = true; isReplay = true;
     }
     if(e.key === 'ArrowDown' && d !== 'UP') {
-      d = 'DOWN';
+      d = 'DOWN'; gameStart = true; isReplay = true;
     }
   }
   if(e.key === 's') {
-    clearInterval(IntervalId);
-    gameOverText.classList.remove('visible'); //* pc size reset
-    for (let i = 0; i < score; i++) {
-      snake.pop();
-    }
-      d = '';
-      score = 0;
-      gameOver = false;
-      gameStart = false;
-      lostSound = true;
-      console.log(gameStart);
-    for (let i = 0; i < 20; i++) {
-      snake[i] = {
-        x: 9 * box,
-        y: 10 * box,
+    if(gameOver && !gameStart && !isReplay) {
+      // window.location.reload(); //* easiest way
+      clearInterval(IntervalId);
+      gameOverText.classList.remove('visible'); //* pc size reset
+      for (let i = 0; i < score; i++) { snake.pop()}
+        d = '';
+        score = 0;
+        gameOver = false;
+        gameStart = false;
+        lostSound = true;
+        console.log(gameStart);
+      for (let i = 0; i < 20; i++) {
+        snake[i] = { x: 9 * box, y: 10 * box}
       }
+      placeCharacter();
+      bugLostSound.classList.remove('js_blank');
+      wallLostSound.classList.remove('js_blank');
     }
-    placeCharacter();
-    bugLostSound.classList.remove('js_blank');
-    wallLostSound.classList.remove('js_blank');
-    // e.key reload ---
-    // gameStart = false;
-    // gameOver = false;
-    // window.location.reload();
   }
 }
+
 
 //* -------------------------------------------------------------------
 
@@ -352,15 +346,20 @@ function gameOverCollisions(snakeX, snakeY) {
       d = '';
       gameOver = true;
       gameOverText.classList.add('visible'); //*
-      if(innerWidth < 951) {
+      if(innerWidth <= 951) {
         ctx.font = '65px Fredoka-One';
         ctx.fillStyle = 'red';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'alphabetic';
         ctx.fillText('GAME OVER', 9.5 * box, 10 * box);
+        setTimeout(() => { restart = true}, 1600);
       }
       clearInterval(IntervalId);
       wallLostAudio();
+      if(innerWidth > 951) { 
+        gameStart = false;
+        setTimeout(() => { isReplay = false}, 1600);
+      }
     }
   } //* wall stop game over
 }
@@ -412,28 +411,31 @@ function bugLostAudio() {
   const btns = document.querySelectorAll('.btn');
   btns.forEach(btn => {
     btn.addEventListener('click', () => {
-      gameStart = true;
       if(!gameOver) {
         if(btn.classList.contains('btn-top') && d !== 'DOWN') {
-          d = 'UP';
+          d = 'UP'; gameStart = true;
         }
         if(btn.classList.contains('btn-left') && d !== 'RIGHT') {
-          d = 'LEFT';
+          d = 'LEFT'; gameStart = true;
         }
         if(btn.classList.contains('btn-right') && d !== 'LEFT') {
-          d = 'RIGHT';
+          d = 'RIGHT'; gameStart = true;
         }
         if(btn.classList.contains('btn-bottom') && d !== 'UP') {
-          d = 'DOWN';
+          d = 'DOWN'; gameStart = true;
         }
       }
       if(btn.classList.contains('btn-replay')) {
-        window.location.reload();
+        if(restart && gameOver) { window.location.reload()}
       }
     });
   });
-  
-console.log(btns);
+  console.log(btns);
+
+window.addEventListener('resize', () => {
+  if(innerWidth < 431) { window.location.reload()}
+});
+
 
 
 
