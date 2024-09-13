@@ -353,15 +353,13 @@ function gameOverCollisions(snakeX, snakeY) {
       gameOverText.classList.add('visible');
       ctx.save();
       if(innerWidth < 951) {
-        // ctx.restore();
-        // ctx.save();
+        ctx.restore();
+        ctx.save();
         ctx.fillStyle = 'red';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'alphabetic';
         ctx.font = '65px Fredoka-One';
         ctx.fillText('GAME OVER', 9.5 * box, 10 * box);
-        ctx.restore();
-        ctx.save();
         ctx.restore();
       }
       clearInterval(IntervalId);
