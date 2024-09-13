@@ -351,16 +351,12 @@ function gameOverCollisions(snakeX, snakeY) {
       d = '';
       gameOver = true;
       gameOverText.classList.add('visible');
-      ctx.save();
       if(innerWidth < 951) {
-        ctx.restore();
-        ctx.save();
+        ctx.font = '65px Fredoka-One';
         ctx.fillStyle = 'red';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'alphabetic';
-        ctx.font = '65px Fredoka-One';
         ctx.fillText('GAME OVER', 9.5 * box, 10 * box);
-        ctx.restore();
       }
       clearInterval(IntervalId);
       wallLostAudio();
@@ -370,6 +366,7 @@ function gameOverCollisions(snakeX, snakeY) {
     }
   } //* wall stop game over
 }
+
 
 function snakeWallCollision(snakeX, snakeY) {
   if(snakeX + box > canvas.width - box) {

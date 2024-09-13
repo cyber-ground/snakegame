@@ -9,6 +9,7 @@
   font-display: swap;
 }
 body {
+  font-family: "Fredoka-One";
   background-color: #333;
   background-color: rgb(197, 242, 63);
   background-color: rgba(31, 172, 237, 0.214);
@@ -113,6 +114,7 @@ body {
     margin: auto;
   }
   .btn-unit .btn-replay {
+    font-family: Verdana;
     margin-top: 20px;
     font-size: 20px;
     font-weight: bold;
