@@ -351,17 +351,18 @@ function gameOverCollisions(snakeX, snakeY) {
       d = '';
       gameOver = true;
       gameOverText.classList.add('visible');
-      ctx.font = '65px Fredoka-One'; 
+      ctx.save();
       if(innerWidth < 951) {
+        // ctx.restore();
+        // ctx.save();
         ctx.fillStyle = 'red';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'alphabetic';
         ctx.font = '65px Fredoka-One';
         ctx.fillText('GAME OVER', 9.5 * box, 10 * box);
-        ctx.globalAlpha = 0;
+        ctx.restore();
         ctx.save();
         ctx.restore();
-        ctx.globalAlpha = 1;
       }
       clearInterval(IntervalId);
       wallLostAudio();
