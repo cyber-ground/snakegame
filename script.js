@@ -255,7 +255,7 @@ function snakeDirection(e) {
   }
   if(e.key === 's') {
     clearInterval(IntervalId);
-    gameOverText.classList.remove('visible'); //*
+    gameOverText.classList.remove('visible'); //* ///////////////////////////
     for (let i = 0; i < score; i++) {
       snake.pop();
     }
@@ -352,17 +352,15 @@ function gameOverCollisions(snakeX, snakeY) {
       gameOver = true;
       gameOverText.classList.add('visible');
       if(innerWidth < 951) {
-        ctx.save();
         ctx.fillStyle = 'red';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'alphabetic';
         ctx.font = '65px Fredoka-One';
         ctx.fillText('GAME OVER', 9.5 * box, 10 * box);
         ctx.globalAlpha = 0;
-        ctx.restore();
         ctx.save();
-        ctx.globalAlpha = 1;
         ctx.restore();
+        ctx.globalAlpha = 1;
       }
       clearInterval(IntervalId);
       wallLostAudio();
