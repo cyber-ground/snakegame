@@ -296,6 +296,7 @@ function drawCharacter() {
   ctx.drawImage(bugImg, bug.x, bug.y, box, box);          // monster
   // ctx.drawImage(bugImg, bug.x, bug.y, box + 10, box);  // dinosaur
   // draw snake
+  ctx.font = '65px Fredoka-One'; /////////////////////////
   for (let i = 0; i < snake.length; i++) {
     ctx.drawImage(snakeImg, snake[i].x, snake[i].y, box, box);
   // ctx.fillStyle = (i === 0) ? 'green' : 'white'; // *
