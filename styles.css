@@ -16,7 +16,7 @@ body {
   overflow: hidden;
 }
 
-@media (min-width: 416px) {
+@media (min-width: 431px) {
   #canvas {
     display: none;
   }
@@ -75,14 +75,11 @@ body {
   }
 }
 @media (max-width: 951px) {
-  .msg, .guide {
-    display: none;
-  }
-  .gameOverText {
+  .msg, .guide, .gameOverText {
     display: none;
   }
 }
-@media (max-width: 415px) {
+@media (max-width: 430px) {
   #canvas {
     display: block;
     width: 365px;

@@ -255,7 +255,7 @@ function snakeDirection(e) {
   }
   if(e.key === 's') {
     clearInterval(IntervalId);
-    gameOverText.classList.remove('visible'); //* ///////////////////////////
+    gameOverText.classList.remove('visible'); //* pc size reset
     for (let i = 0; i < score; i++) {
       snake.pop();
     }
@@ -341,6 +341,7 @@ function snakeFoodCollision(snakeX, snakeY) {
     snake.pop();
   }
 }
+
 const gameOverText = document.querySelector('.gameOverText');
 function gameOverCollisions(snakeX, snakeY) {
   snakeWallCollision(snakeX, snakeY);
@@ -350,7 +351,7 @@ function gameOverCollisions(snakeX, snakeY) {
     if(gameStart) {
       d = '';
       gameOver = true;
-      gameOverText.classList.add('visible');
+      gameOverText.classList.add('visible'); //*
       if(innerWidth < 951) {
         ctx.font = '65px Fredoka-One';
         ctx.fillStyle = 'red';
@@ -360,9 +361,6 @@ function gameOverCollisions(snakeX, snakeY) {
       }
       clearInterval(IntervalId);
       wallLostAudio();
-      // setTimeout(() => {  // auto reload // 
-      //   window.location.reload();
-      // }, 3000);
     }
   } //* wall stop game over
 }
