@@ -26,6 +26,8 @@ body {
   overflow: hidden;
 }
 
+
+
 @media(min-width: 431px) {
   #canvas {
     display: none;
@@ -35,8 +37,29 @@ body {
   }
   .monster {
     display: block;
-    width: 45%;
-    margin: 20px auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40vw;
+  }
+}
+
+@media (min-width: 431px) and (min-height: 390px) {
+  .monster {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+@media (min-width: 844px) and (min-height: 390px) {
+  .monster {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
 }
 
@@ -89,6 +112,19 @@ body {
     font-size: 2em;
     text-transform: uppercase;
   }
+  .scoreBoard {
+    position: absolute;
+    top: 92px;
+    left: calc(50% + 330px);
+    transform: translateX(-50%);
+    color: #eeff00;
+    letter-spacing: .5px;
+    .bestScore {
+      font-size: 1.4em;
+      letter-spacing: 3px;
+      color: #eeff00;
+    }
+  }
 }
 
 @media (max-width: 951px) {
@@ -96,21 +132,27 @@ body {
     display: none;
   }
 }
+@media (min-width: 431px) and (max-width: 951px) {
+  .scoreBoard {
+    display: none;
+  }
+}
 
 //--------------------------------------------
 //* smartPhone size ---
-
+// $top: 20px;
 @media(max-width: 430px) {
   #canvas {
     display: block;
     width: 365px;
     height: 365px;
-    margin: 50px auto;  // bc20
+    // margin: $top auto;  // bc50
+    margin: 20px auto;
     border-radius: 20px;
   }
   .btn-unit {
     // display: block;
-    margin-top: 30px;
+    margin-top: 0px;
     .btn {
       width: 100px;
       height: 50px;
@@ -132,8 +174,8 @@ body {
       margin: auto;
     }
     .btn-replay {
-      font-family: Verdana;
-      margin-top: 20px;
+      font-family: 'Verdana';
+      margin-top: 10px; //***
       font-size: 20px;
       font-weight: bold;
       color: #fff;
@@ -144,6 +186,21 @@ body {
   }
   .monster {
     display: none;
+  }
+  .scoreBoard {
+    position: absolute;
+    // top: calc($top + 12px);
+    top: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #eeff00;
+    letter-spacing: .5px;
+    font-size: .9em;
+    .bestScore {
+      font-size: 1.2em;
+      letter-spacing: 3px;
+      color: #eeff00;
+    }
   }
   //* if ctx fillText not working..
   //* use this instead ---

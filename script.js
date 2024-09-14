@@ -3,11 +3,9 @@
 
 
 
-// ----------------------------------------------------------------------------------------------------
-
-//                                   ----- SNAKE GAME -----
-// ----------------------------------------------------------------------------------------------------
-// class --- 
+// ------------------------------------------------------------------------------------
+//*                                ----- CLASS -----
+// ------------------------------------------------------------------------------------
 
 // const canvas = document.getElementById('canvas');
 //   const ctx = canvas.getContext('2d');
@@ -86,8 +84,11 @@
 // }
 // const ground = new Ground();
 
-// ------------------------------------------------------------------------------------------------
-//* constant variable ---
+
+// ------------------------------------------------------------------------------------
+//*                             ----- SNAKE GAME -----
+// ------------------------------------------------------------------------------------
+
 
 const canvas = document.getElementById('canvas');
   const ctx = canvas.getContext('2d');
@@ -108,11 +109,11 @@ const canvas = document.getElementById('canvas');
         wallLostSound.src = 'audio/wallLost.mp3'
       const eatFoodSound = new Audio();
         eatFoodSound.src = 'audio/eat.wav';
-
   const data = [];
     const box = 50;
 
-//* create data --------------------------------------------
+
+//* create data -------------
 
 function createData() {
   for (let row = 0; row < 19; row++) {
@@ -167,26 +168,25 @@ function drawGround() {
   }
 }
 
-//* place character -------------------------------
-
+//* place character ---
+const LENGTH = 5;
 let snake = [];
   let food, bug;
     let IntervalId;
       let TimeoutId;
-        let d = '';
+        let d = ''; 
         let score = 0;
       let gameOver = false;
     let gameStart = false;
   let lostSound = false;
   let restart = false;
+  let isReplay = false;
+//* d means direction
 
 function placeCharacter() {
   do {
-    for (let i = 0; i < 20; i++) {
-      snake[i] = {
-        x: 9 * box,
-        y: 10 * box,
-      }
+    for (let i = 0; i < LENGTH; i++) {
+      snake[i] = { x: 9 * box, y: 10 * box }
     }
     food = {
       x: Math.floor(Math.random() * 17 + 1) * box,
@@ -208,51 +208,54 @@ function placeCharacter() {
         x: Math.floor(Math.random() * 17 + 1) * box,
         y: Math.floor(Math.random() * 15 + 3) * box,
       };
-      console.log('bug - random  ' + bug.x);
+      console.log('bug - random  ' + bug.x); //* log
     }, 5000);
   }
 } placeCharacter();
 
-//* update requestAnimationFrame --------------------------
+//* update requestAnimationFrame ---------
 
-function update() {
+function raf() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   drawGround();
   drawCharacter();
   snakeMovement();
-  requestAnimationFrame(update);
-}
-update();
+  requestAnimationFrame(raf);
+} raf();
 
-// console.log('food   ' + food.x);
-// console.log('bug   ' + bug.x);
-// console.log('snake  ' + snake[0].x);
+// console.log('bug ' + bug.x); 
+// console.log('food ' + food.x); 
+// console.log('snake ' + snake[0].x);
 
-//* event ---------------------------------------------------
-let isReplay = false;
+
+//* event ----------------------------------
+
 document.addEventListener('keydown', snakeDirection);
 function snakeDirection(e) {
-  if(e.key !== 'ArrowRight'  // return keys not collect //
-    && e.key !== 'ArrowLeft' 
-    && e.key !== 'ArrowUp' 
-    && e.key !== 'ArrowDown' 
-    && e.key !== 's') return;  
+  if(e.key !== 'ArrowRight' && e.key !== 'ArrowLeft' 
+    && e.key !== 'ArrowUp' && e.key !== 'ArrowDown' 
+    && e.key !== 's') return; //* return key isn't collect
   if(!gameOver) {
     setTimeout(() => {lostSound = false}, 500);
-    if(e.key === 'ArrowRight' && d !== 'LEFT') { // *
-      d = 'RIGHT'; gameStart = true; isReplay = true;
+    if(e.key === 'ArrowRight' && d !== 'LEFT') { 
+      d = 'RIGHT'; [gameStart, isReplay] = [true, true];
     }
     if(e.key === 'ArrowLeft' && d !== 'RIGHT') {
-      d = 'LEFT'; gameStart = true; isReplay = true;
+      d = 'LEFT'; [gameStart, isReplay] = [true, true];
     }
     if(e.key === 'ArrowUp' && d !== 'DOWN') {
-      d = 'UP'; gameStart = true; isReplay = true;
+      d = 'UP'; [gameStart, isReplay] = [true, true];
     }
     if(e.key === 'ArrowDown' && d !== 'UP') {
-      d = 'DOWN'; gameStart = true; isReplay = true;
+      d = 'DOWN'; [gameStart, isReplay] = [true, true];
     }
+    //* all direction version ---
+    // if(e.key === 'ArrowRight') {d = 'RIGHT'; [gameStart, isReplay] = [true, true]}
+    // if(e.key === 'ArrowLeft') {d = 'LEFT'; [gameStart, isReplay] = [true, true]}
+    // if(e.key === 'ArrowUp') {d = 'UP'; [gameStart, isReplay] = [true, true]}
+    // if(e.key === 'ArrowDown') {d = 'DOWN'; [gameStart, isReplay] = [true, true]}
   }
-  if(e.key === 's') {
+  if(e.key === 's') { //* replay ---
     if(gameOver && !gameStart && !isReplay) {
       // window.location.reload(); //* easiest way
       clearInterval(IntervalId);
@@ -260,11 +263,10 @@ function snakeDirection(e) {
       for (let i = 0; i < score; i++) { snake.pop()}
         d = '';
         score = 0;
-        gameOver = false;
-        gameStart = false;
         lostSound = true;
-        console.log(gameStart);
-      for (let i = 0; i < 20; i++) {
+        [gameOver, gameStart] = [false, false];
+        // console.log(gameStart); //* log
+      for (let i = 0; i < LENGTH; i++) {
         snake[i] = { x: 9 * box, y: 10 * box}
       }
       placeCharacter();
@@ -275,31 +277,43 @@ function snakeDirection(e) {
 }
 
 
-//* -------------------------------------------------------------------
+//* -----------------------------------
+
+// function drawCharacter() { // original version ---
+//   ctx.drawImage(displayFoodImg, 1 * box, 0.5 * box, box, box);
+//     ctx.fillStyle = 'white';
+//     ctx.textAlign = 'center';
+//     ctx.textBaseline = 'bottom';
+//     ctx.font = '45px Verdana';
+//     ctx.fillText(score, 3 * box, 1.5 * box);
+//   ctx.drawImage(bugImg, bug.x, bug.y, box + 10, box); // dinosaur
+//   for (let i = 0; i < snake.length; i++) {
+//     ctx.fillStyle = (i === 0) ? 'green' : 'white'; // *
+//     ctx.beginPath();
+//     ctx.arc(snake[i].x, snake[i].y, 25, 0, 2 * Math.PI);
+//     ctx.fill();
+//     ctx.fillStyle ='darkGreen'; 
+//     ctx.fillRect(snake[i].x, snake[i].y, box, box);
+//     ctx.strokeStyle = 'yellowGreen';
+//     ctx.strokeRect(snake[i].x, snake[i].y, box, box);
+//   }
+// }
+
+//* -----------------------------------
 
 function drawCharacter() {
-  // draw displayFood & score
+  //* draw displayFood & score
   ctx.drawImage(displayFoodImg, 1 * box, 0.5 * box, box, box);
     ctx.fillStyle = 'white';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'bottom';
     ctx.font = '45px Verdana';
     ctx.fillText(score, 3 * box, 1.5 * box);
-    //* draw food & bug
+    //* draw food & bug & snake
   ctx.drawImage(foodImg, food.x, food.y, box, box);
-  ctx.drawImage(bugImg, bug.x, bug.y, box, box);          // monster
-  // ctx.drawImage(bugImg, bug.x, bug.y, box + 10, box);  // dinosaur
-  // draw snake
+  ctx.drawImage(bugImg, bug.x, bug.y, box, box);
   for (let i = 0; i < snake.length; i++) {
     ctx.drawImage(snakeImg, snake[i].x, snake[i].y, box, box);
-  // ctx.fillStyle = (i === 0) ? 'green' : 'white'; // *
-  // ctx.beginPath();
-  // ctx.arc(snake[i].x, snake[i].y, 25, 0, 2 * Math.PI);
-  // ctx.fill();
-  //   ctx.fillStyle ='darkGreen'; 
-  //   ctx.fillRect(snake[i].x, snake[i].y, box, box);
-  //   ctx.strokeStyle = 'yellowGreen';
-  //   ctx.strokeRect(snake[i].x, snake[i].y, box, box);
   }
 }
 
@@ -317,9 +331,9 @@ function snakeMovement() {
     x: snakeX,
     y: snakeY,
   }
-  snakeFoodCollision(snakeX, snakeY);
-    snake.unshift(newHead);
-  gameOverCollisions(snakeX, snakeY);
+  snakeFoodCollision(snakeX, snakeY); //* snake pop() here!
+    snake.unshift(newHead); //***
+  gameOverCollisions(snakeX, snakeY); //*
 }
 
 function snakeFoodCollision(snakeX, snakeY) {
@@ -331,39 +345,71 @@ function snakeFoodCollision(snakeX, snakeY) {
       x: Math.floor(Math.random() * 17 + 1) * box,
       y: Math.floor(Math.random() * 15 + 3) * box,
     };
-  } else {
-    snake.pop();
-  }
+  } else { snake.pop() } //***
 }
 
+let pending = 0;
+const bestScore = document.querySelector('.bestScore');
+bestScore.textContent = localStorage.getItem('bestScore');
 const gameOverText = document.querySelector('.gameOverText');
+
+//* game over Collisions ---
 function gameOverCollisions(snakeX, snakeY) {
   snakeWallCollision(snakeX, snakeY);
   snakeBugCollision(snakeX, snakeY);
-  if(snake[0].x === snake[19].x 
-    && snake[0].y === snake[19].y) { 
+  if(snake[0].x === snake[LENGTH-1].x 
+    && snake[0].y === snake[LENGTH-1].y) { 
     if(gameStart) {
       d = '';
       gameOver = true;
-      gameOverText.classList.add('visible'); //*
-      if(innerWidth <= 951) {
+      saveScore(); //*
+      wallLostAudio();
+      clearInterval(IntervalId);
+      if(innerWidth > 951) { 
+        gameStart = false;
+        gameOverText.classList.add('visible'); //*
+        setTimeout(() => { isReplay = false}, 1600);
+      } else { //* mobile size
         ctx.font = '65px Fredoka-One';
         ctx.fillStyle = 'red';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'alphabetic';
         ctx.fillText('GAME OVER', 9.5 * box, 10 * box);
-        setTimeout(() => { restart = true}, 1600);
+        pending++;
+        if(pending > 80) { isReplay = true } //*
       }
-      clearInterval(IntervalId);
-      wallLostAudio();
-      if(innerWidth > 951) { 
-        gameStart = false;
-        setTimeout(() => { isReplay = false}, 1600);
+    } else { //* bug collision happened if before start playing 
+      if(snakeX + box > bug.x  && snakeX < bug.x + box 
+      && snakeY < bug.y + box && snakeY + box > bug.y) {
+        d = '';
+        gameOver = true;
+        gameOverText.classList.add('visible'); //*
+        if(innerWidth <= 951) {
+          ctx.font = '65px Fredoka-One';
+          ctx.fillStyle = 'red';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'alphabetic';
+          ctx.fillText('GAME OVER', 9.5 * box, 10 * box);
+          pending++;
+          if(pending > 80) { isReplay = true } //*
+        }
+        clearInterval(IntervalId);
+        bugLostAudio();
+        setTimeout(() => { window.location.reload()}, 1500);
       }
     }
-  } //* wall stop game over
+  } 
 }
 
+function saveScore() {
+  if(!localStorage.getItem('bestScore')) {
+    localStorage.setItem('bestScore', score);
+    bestScore.textContent = localStorage.getItem('bestScore');
+  } else if(localStorage.getItem('bestScore') < score) {
+    localStorage.setItem('bestScore', score);
+    bestScore.textContent = localStorage.getItem('bestScore');
+  }
+}
 
 function snakeWallCollision(snakeX, snakeY) {
   if(snakeX + box > canvas.width - box) {
@@ -375,7 +421,7 @@ function snakeWallCollision(snakeX, snakeY) {
   } else if(snakeY < box * 3) {
     snake[0].y += box / 4;
   }
-}
+} //* wall game over 
 
 function snakeBugCollision(snakeX, snakeY) {
   if(snakeX + box > bug.x  && snakeX < bug.x + box 
@@ -384,7 +430,7 @@ function snakeBugCollision(snakeX, snakeY) {
     gameOver = true;
     clearInterval(IntervalId);
     bugLostAudio();
-  } //* bug game over //
+  } //* bug game over 
 }
 
 
@@ -405,28 +451,44 @@ function bugLostAudio() {
   bugLostSound.classList.add('js_blank');
 }
 
-
-//* --------------------------------------------------------------------------------
+//* btn event -----------------------------
 
   const btns = document.querySelectorAll('.btn');
   btns.forEach(btn => {
     btn.addEventListener('click', () => {
       if(!gameOver) {
         if(btn.classList.contains('btn-top') && d !== 'DOWN') {
-          d = 'UP'; gameStart = true;
+          d = 'UP'; gameStart = true; lostSound = false; 
         }
         if(btn.classList.contains('btn-left') && d !== 'RIGHT') {
-          d = 'LEFT'; gameStart = true;
+          d = 'LEFT'; gameStart = true; lostSound = false; 
         }
         if(btn.classList.contains('btn-right') && d !== 'LEFT') {
-          d = 'RIGHT'; gameStart = true;
+          d = 'RIGHT'; gameStart = true; lostSound = false; 
         }
         if(btn.classList.contains('btn-bottom') && d !== 'UP') {
-          d = 'DOWN'; gameStart = true;
+          d = 'DOWN'; gameStart = true; lostSound = false; 
         }
       }
       if(btn.classList.contains('btn-replay')) {
-        if(restart && gameOver) { window.location.reload()}
+        if(isReplay && gameOver) { 
+          // window.location.reload(); //* easiest way
+          clearInterval(IntervalId);
+          gameOverText.classList.remove('visible'); //* pc size reset
+          for (let i = 0; i < score; i++) { snake.pop()}
+            d = '';
+            score = 0;
+            pending = 0
+            lostSound = true;
+            console.log(gameStart);
+            [gameOver, gameStart, isReplay] = [false, false, false];
+          for (let i = 0; i < LENGTH; i++) {
+            snake[i] = { x: 9 * box, y: 10 * box}
+          }
+          placeCharacter();
+          bugLostSound.classList.remove('js_blank');
+          wallLostSound.classList.remove('js_blank');
+        }
       }
     });
   });

@@ -25,8 +25,27 @@ body {
   }
   .monster {
     display: block;
-    width: 45%;
-    margin: 20px auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40vw;
+  }
+}
+@media (min-width: 431px) and (min-height: 390px) {
+  .monster {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+@media (min-width: 844px) and (min-height: 390px) {
+  .monster {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
 }
 @media (min-width: 951px) {
@@ -73,9 +92,27 @@ body {
     font-size: 2em;
     text-transform: uppercase;
   }
+  .scoreBoard {
+    position: absolute;
+    top: 92px;
+    left: calc(50% + 330px);
+    transform: translateX(-50%);
+    color: #eeff00;
+    letter-spacing: 0.5px;
+  }
+  .scoreBoard .bestScore {
+    font-size: 1.4em;
+    letter-spacing: 3px;
+    color: #eeff00;
+  }
 }
 @media (max-width: 951px) {
   .msg, .guide, .gameOverText {
+    display: none;
+  }
+}
+@media (min-width: 431px) and (max-width: 951px) {
+  .scoreBoard {
     display: none;
   }
 }
@@ -84,11 +121,11 @@ body {
     display: block;
     width: 365px;
     height: 365px;
-    margin: 50px auto;
+    margin: 20px auto;
     border-radius: 20px;
   }
   .btn-unit {
-    margin-top: 30px;
+    margin-top: 0px;
   }
   .btn-unit .btn {
     width: 100px;
@@ -111,8 +148,8 @@ body {
     margin: auto;
   }
   .btn-unit .btn-replay {
-    font-family: Verdana;
-    margin-top: 20px;
+    font-family: "Verdana";
+    margin-top: 10px;
     font-size: 20px;
     font-weight: bold;
     color: #fff;
@@ -122,5 +159,19 @@ body {
   }
   .monster {
     display: none;
+  }
+  .scoreBoard {
+    position: absolute;
+    top: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #eeff00;
+    letter-spacing: 0.5px;
+    font-size: 0.9em;
+  }
+  .scoreBoard .bestScore {
+    font-size: 1.2em;
+    letter-spacing: 3px;
+    color: #eeff00;
   }
 }
