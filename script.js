@@ -100,7 +100,6 @@ const canvas = document.getElementById('canvas');
       const snakeImg = new Image();
         snakeImg.src = 'img/Happy Lemon.svg';
       const bugImg = new Image();
-        // bugImg.src = 'img/dinosaur.svg';
         bugImg.src = 'img/Fibonacci monster.svg';
   //* audio ---
     const bugLostSound = new Audio();
@@ -111,7 +110,6 @@ const canvas = document.getElementById('canvas');
         eatFoodSound.src = 'audio/eat.wav';
   const data = [];
     const box = 50;
-
 
 //* create data -------------
 
@@ -169,7 +167,7 @@ function drawGround() {
 }
 
 //* place character ---
-const LENGTH = 5;
+const LENGTH = 20;
 let snake = [];
   let food, bug;
     let IntervalId;
