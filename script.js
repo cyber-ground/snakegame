@@ -320,10 +320,10 @@ function snakeMovement() {
   let snakeX = snake[0].x;
   let snakeY = snake[0].y;
   //* which direction
-    if(d === 'RIGHT') {snakeX += box / 4}
-    if(d === 'DOWN') {snakeY += box / 4}
-    if(d === 'LEFT') {snakeX -= box / 4}
-    if(d === 'UP') {snakeY -= box / 4}
+    if(d === 'RIGHT') {snakeX += box/4}
+    if(d === 'DOWN') {snakeY += box/4}
+    if(d === 'LEFT') {snakeX -= box/4}
+    if(d === 'UP') {snakeY -= box/4}
   //* snake food collision
   let newHead = {
     x: snakeX,
