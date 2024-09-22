@@ -478,7 +478,6 @@ function bugLostAudio() {
             score = 0;
             pending = 0
             lostSound = true;
-            console.log(gameStart);
             [gameOver, gameStart, isReplay] = [false, false, false];
           for (let i = 0; i < LENGTH; i++) {
             snake[i] = { x: 9 * box, y: 10 * box}
@@ -490,7 +489,6 @@ function bugLostAudio() {
       }
     });
   });
-  console.log(btns);
 
 window.addEventListener('resize', () => {
   if(innerWidth < 431) { window.location.reload()}
