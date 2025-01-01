@@ -94,7 +94,7 @@ body {
       visibility: visible;
     }
   }
-  .msg {
+  .msg-wrapper {
     font-family: 'Fredoka-One';
     position: absolute;
     top: 90px;
@@ -104,6 +104,9 @@ body {
     color: #0af;
     font-size: 2em;
     text-transform: uppercase;
+    span.msg {
+      margin-right: 5px;
+    }
   }
   .guide {
     font-family: 'Fredoka-One';
@@ -151,7 +154,6 @@ body {
     border-radius: 20px;
   }
   .btn-unit {
-    // display: block;
     margin-top: 0px;
     .btn {
       width: 100px;

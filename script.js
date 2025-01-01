@@ -92,6 +92,7 @@
 
 const canvas = document.getElementById('canvas');
   const ctx = canvas.getContext('2d');
+  const msg = document.querySelector('.msg');
   //* image ---
     const displayFoodImg = new Image();
       displayFoodImg.src = 'img/Chicken.svg';
@@ -110,6 +111,9 @@ const canvas = document.getElementById('canvas');
         eatFoodSound.src = 'audio/eat.wav';
   const data = [];
     const box = 50;
+
+  var bgmHowl = new Howl({src: ['mp3/bgm.mp3'], loop: true, volume: 0.3});
+  var snakeHowl = new Howl({src: ['mp3/snake.mp3'], loop: true, volume: 0.6});
 
 //* create data -------------
 
@@ -174,11 +178,14 @@ let snake = [];
       let TimeoutId;
         let d = ''; 
         let score = 0;
-      let gameOver = false;
+      let gameOver = false; //*** 
     let gameStart = false;
   let lostSound = false;
   let restart = false;
   let isReplay = false;
+  let startBgm = false;
+  let fadeId_bgmHowl;
+  let iid_stopBgmHowl_wallLost
 //* d means direction
 
 function placeCharacter() {
@@ -222,30 +229,37 @@ function raf() {
 } raf();
 
 // console.log('bug ' + bug.x); 
-// console.log('food ' + food.x); 
-// console.log('snake ' + snake[0].x);
+// console.log('sfood ' + food.x); 
+// console.log(s'snake ' + snake[0].x);
 
 
 //* event ----------------------------------
-
+document.addEventListener('click', () => {
+  
+});
 document.addEventListener('keydown', snakeDirection);
 function snakeDirection(e) {
   if(e.key !== 'ArrowRight' && e.key !== 'ArrowLeft' 
     && e.key !== 'ArrowUp' && e.key !== 'ArrowDown' 
     && e.key !== 's') return; //* return key isn't collect
-  if(!gameOver) {
+    
+  if(!gameOver && startBgm) {
     setTimeout(() => {lostSound = false}, 500);
     if(e.key === 'ArrowRight' && d !== 'LEFT') { 
       d = 'RIGHT'; [gameStart, isReplay] = [true, true];
+      snakeHowl.stop(); snakeHowl.play();
     }
     if(e.key === 'ArrowLeft' && d !== 'RIGHT') {
       d = 'LEFT'; [gameStart, isReplay] = [true, true];
+      snakeHowl.stop(); snakeHowl.play();
     }
     if(e.key === 'ArrowUp' && d !== 'DOWN') {
       d = 'UP'; [gameStart, isReplay] = [true, true];
+      snakeHowl.stop(); snakeHowl.play();
     }
     if(e.key === 'ArrowDown' && d !== 'UP') {
       d = 'DOWN'; [gameStart, isReplay] = [true, true];
+      snakeHowl.stop(); snakeHowl.play();
     }
     //* all direction version ---
     // if(e.key === 'ArrowRight') {d = 'RIGHT'; [gameStart, isReplay] = [true, true]}
@@ -254,6 +268,11 @@ function snakeDirection(e) {
     // if(e.key === 'ArrowDown') {d = 'DOWN'; [gameStart, isReplay] = [true, true]}
   }
   if(e.key === 's') { //* replay ---
+    clearInterval(iid_stopBgmHowl_wallLost);
+    if(!startBgm && !gameOver) { bgmHowl.play()}
+    if(gameOver) { bgmHowl.volume(0.3)}
+    startBgm = true;
+    msg.textContent = 'restart'
     if(gameOver && !gameStart && !isReplay) {
       // window.location.reload(); //* easiest way
       clearInterval(IntervalId);
@@ -393,7 +412,6 @@ function gameOverCollisions(snakeX, snakeY) {
         }
         clearInterval(IntervalId);
         bugLostAudio();
-        setTimeout(() => { window.location.reload()}, 1500);
       }
     }
   } 
@@ -437,8 +455,10 @@ function wallLostAudio() {
     if(wallLostSound.classList.contains('js_blank')) return;
     if(lostSound) return;
     wallLostSound.play();
+    snakeHowl.stop();
       lostSound = true;
     wallLostSound.classList.add('js_blank');
+    stopBgmHowl_wallBugCollision();
   }, 300);
 }
 
@@ -446,29 +466,49 @@ function bugLostAudio() {
   clearTimeout(TimeoutId);
   if(bugLostSound.classList.contains('js_blank')) return;
   bugLostSound.play();
+  snakeHowl.stop();
   bugLostSound.classList.add('js_blank');
+  stopBgmHowl_wallBugCollision();
 }
 
+function stopBgmHowl_wallBugCollision() {
+  iid_stopBgmHowl_wallLost = setInterval(() => {
+    bgmHowl.fade(0.3, 0, 3000, fadeId_bgmHowl);
+    startBgm = false;
+    clearInterval(iid_stopBgmHowl_wallLost);
+  }, 10000);
+}
+
+
+// snakeHowl.stop(); snakeHowl.play();
 //* btn event -----------------------------
 
   const btns = document.querySelectorAll('.btn');
   btns.forEach(btn => {
     btn.addEventListener('click', () => {
-      if(!gameOver) {
+      if(!gameOver && startBgm) {
         if(btn.classList.contains('btn-top') && d !== 'DOWN') {
           d = 'UP'; gameStart = true; lostSound = false; 
+          snakeHowl.stop(); snakeHowl.play();
         }
         if(btn.classList.contains('btn-left') && d !== 'RIGHT') {
           d = 'LEFT'; gameStart = true; lostSound = false; 
+          snakeHowl.stop(); snakeHowl.play();
         }
         if(btn.classList.contains('btn-right') && d !== 'LEFT') {
           d = 'RIGHT'; gameStart = true; lostSound = false; 
+          snakeHowl.stop(); snakeHowl.play();
         }
         if(btn.classList.contains('btn-bottom') && d !== 'UP') {
           d = 'DOWN'; gameStart = true; lostSound = false; 
+          snakeHowl.stop(); snakeHowl.play();
         }
       }
       if(btn.classList.contains('btn-replay')) {
+        clearInterval(iid_stopBgmHowl_wallLost);
+        btn.textContent = 'replay';
+        if(!startBgm) { fadeId_bgmHowl = bgmHowl.play() }
+        startBgm = true;
         if(isReplay && gameOver) { 
           // window.location.reload(); //* easiest way
           clearInterval(IntervalId);

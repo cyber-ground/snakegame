@@ -74,7 +74,7 @@ body {
   .gameOverText.visible {
     visibility: visible;
   }
-  .msg {
+  .msg-wrapper {
     font-family: "Fredoka-One";
     position: absolute;
     top: 90px;
@@ -84,6 +84,9 @@ body {
     color: #0af;
     font-size: 2em;
     text-transform: uppercase;
+  }
+  .msg-wrapper span.msg {
+    margin-right: 5px;
   }
   .guide {
     font-family: "Fredoka-One";

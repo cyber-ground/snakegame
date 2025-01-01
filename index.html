@@ -10,17 +10,21 @@
   <title>SNAKE GAME</title>
   <link rel="stylesheet" href="reset.css">
   <link rel="stylesheet" href="styles.css">
-  <script type="module" src="script.js" defer></script>
+  <script type="module" src="howler.min.js"></script>
+  <script type="module" src="script.js"></script>
 </head>
 <body>
 
   
 <!----------------------------------------------------------->
 <!--* SNAKE GAME -->
+
 <div class="scoreBoard">BEST SCORE &VeryThinSpace;
   <span class="bestScore">0</span>
 </div>
-<div class="msg">Restart&ensp;"S"&ensp;key !</div>
+<div class="msg-wrapper">
+  <span class="msg">play start</span>
+  "S"&ensp;key !</div>
 <canvas id="canvas" width="950" height="950">
   canvas not supported.
 </canvas>
@@ -43,7 +47,7 @@
         <i class="fas fa-chevron-right"></i>
       </div>
     </div>
-    <div class=" btn btn-replay">replay</div>
+    <div class=" btn btn-replay">play</div>
 </div>
 
 <img class="monster "src="img/Fibonacci monster.svg" alt="">
