@@ -171,7 +171,7 @@ function drawGround() {
 }
 
 //* place character ---
-const LENGTH = 15;
+const LENGTH = 16;
 let snake = [];
   let food, bug;
     let IntervalId;
@@ -456,7 +456,7 @@ function stopBgmHowl_wallBugCollision() {
 
   const btns = document.querySelectorAll('.btn');
   btns.forEach(btn => {
-    btn.addEventListener('click', () => {
+    btn.addEventListener('touchstart', () => {
       if(!gameOver && startBgm) {
         if(btn.classList.contains('btn-top') && d !== 'DOWN') {
           d = 'UP'; gameStart = true; lostSound = false; 
