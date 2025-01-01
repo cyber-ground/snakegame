@@ -99,13 +99,16 @@ body {
     position: absolute;
     top: 90px;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-53%);
     display: block;
     color: #0af;
     font-size: 2em;
     text-transform: uppercase;
+    &.active {
+      transform: translateX(-50%);
+    }
     span.msg {
-      margin-right: 5px;
+      margin-right: 10px;
     }
   }
   .guide {
@@ -131,7 +134,7 @@ body {
 }
 
 @media (max-width: 951px) {
-  .msg, .guide, .gameOverText {
+  .msg-wrapper, .guide, .gameOverText {
     display: none;
   }
 }

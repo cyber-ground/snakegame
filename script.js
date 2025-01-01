@@ -269,7 +269,8 @@ function snakeDirection(e) {
     if(!startBgm && !gameOver) { bgmHowl.play()}
     if(gameOver) { bgmHowl.volume(0.3)}
     startBgm = true;
-    msg.textContent = 'restart'
+    msg.textContent = 'restart';
+    msg.classList.add('active');
     if(gameOver && !gameStart && !isReplay) {
       // window.location.reload(); //* easiest way
       clearInterval(IntervalId);
