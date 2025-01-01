@@ -229,7 +229,7 @@ function raf() {
 } raf();
 
 // console.log('bug ' + bug.x); 
-// console.log('sfood ' + food.x); 
+// console.log('food ' + food.x); 
 // console.log(s'snake ' + snake[0].x);
 
 
