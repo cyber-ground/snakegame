@@ -171,7 +171,7 @@ function drawGround() {
 }
 
 //* place character ---
-const LENGTH = 20;
+const LENGTH = 15;
 let snake = [];
   let food, bug;
     let IntervalId;
@@ -185,7 +185,7 @@ let snake = [];
   let isReplay = false;
   let startBgm = false;
   let fadeId_bgmHowl;
-  let iid_stopBgmHowl_wallLost
+  let iid_fadeBgmHowl
 //* d means direction
 
 function placeCharacter() {
@@ -239,7 +239,6 @@ function snakeDirection(e) {
   if(e.key !== 'ArrowRight' && e.key !== 'ArrowLeft' 
     && e.key !== 'ArrowUp' && e.key !== 'ArrowDown' 
     && e.key !== 's') return; //* return key isn't collect
-    
   if(!gameOver && startBgm) {
     setTimeout(() => {lostSound = false}, 500);
     if(e.key === 'ArrowRight' && d !== 'LEFT') { 
@@ -265,8 +264,8 @@ function snakeDirection(e) {
     // if(e.key === 'ArrowDown') {d = 'DOWN'; [gameStart, isReplay] = [true, true]}
   }
   if(e.key === 's') { //* replay ---
-    clearInterval(iid_stopBgmHowl_wallLost);
-    if(!startBgm && !gameOver) { bgmHowl.play()}
+    clearInterval(iid_fadeBgmHowl);
+    if(!startBgm && !gameOver) { fadeId_bgmHowl = bgmHowl.play()}
     if(gameOver) { bgmHowl.volume(0.3)}
     startBgm = true;
     msg.textContent = 'restart';
@@ -446,10 +445,10 @@ function bugLostAudio() {
 }
 
 function stopBgmHowl_wallBugCollision() {
-  iid_stopBgmHowl_wallLost = setInterval(() => {
+  iid_fadeBgmHowl = setInterval(() => {
     bgmHowl.fade(0.3, 0, 3000, fadeId_bgmHowl);
     startBgm = false;
-    clearInterval(iid_stopBgmHowl_wallLost);
+    clearInterval(iid_fadeBgmHowl);
   }, 10000);
 }
 
@@ -477,7 +476,7 @@ function stopBgmHowl_wallBugCollision() {
         }
       }
       if(btn.classList.contains('btn-replay')) {
-        clearInterval(iid_stopBgmHowl_wallLost);
+        clearInterval(iid_fadeBgmHowl);
         btn.textContent = 'replay';
         if(!startBgm) { fadeId_bgmHowl = bgmHowl.play() }
         startBgm = true;
