@@ -449,7 +449,6 @@ function snakeBugCollision(snakeX, snakeY) {
   } //* bug game over 
 }
 
-
 function wallLostAudio() {
   TimeoutId = setTimeout(() => {
     if(wallLostSound.classList.contains('js_blank')) return;
@@ -479,8 +478,6 @@ function stopBgmHowl_wallBugCollision() {
   }, 10000);
 }
 
-
-// snakeHowl.stop(); snakeHowl.play();
 //* btn event -----------------------------
 
   const btns = document.querySelectorAll('.btn');
