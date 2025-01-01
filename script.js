@@ -178,7 +178,7 @@ let snake = [];
       let TimeoutId;
         let d = ''; 
         let score = 0;
-      let gameOver = false; //*** 
+      let gameOver = false; 
     let gameStart = false;
   let lostSound = false;
   let restart = false;
@@ -232,11 +232,8 @@ function raf() {
 // console.log('food ' + food.x); 
 // console.log(s'snake ' + snake[0].x);
 
-
 //* event ----------------------------------
-document.addEventListener('click', () => {
-  
-});
+
 document.addEventListener('keydown', snakeDirection);
 function snakeDirection(e) {
   if(e.key !== 'ArrowRight' && e.key !== 'ArrowLeft' 
@@ -293,30 +290,7 @@ function snakeDirection(e) {
   }
 }
 
-
-//* -----------------------------------
-
-// function drawCharacter() { // original version ---
-//   ctx.drawImage(displayFoodImg, 1 * box, 0.5 * box, box, box);
-//     ctx.fillStyle = 'white';
-//     ctx.textAlign = 'center';
-//     ctx.textBaseline = 'bottom';
-//     ctx.font = '45px Verdana';
-//     ctx.fillText(score, 3 * box, 1.5 * box);
-//   ctx.drawImage(bugImg, bug.x, bug.y, box + 10, box); // dinosaur
-//   for (let i = 0; i < snake.length; i++) {
-//     ctx.fillStyle = (i === 0) ? 'green' : 'white'; // *
-//     ctx.beginPath();
-//     ctx.arc(snake[i].x, snake[i].y, 25, 0, 2 * Math.PI);
-//     ctx.fill();
-//     ctx.fillStyle ='darkGreen'; 
-//     ctx.fillRect(snake[i].x, snake[i].y, box, box);
-//     ctx.strokeStyle = 'yellowGreen';
-//     ctx.strokeRect(snake[i].x, snake[i].y, box, box);
-//   }
-// }
-
-//* -----------------------------------
+//* event func -----------------------------------
 
 function drawCharacter() {
   //* draw displayFood & score
@@ -533,10 +507,30 @@ window.addEventListener('resize', () => {
 
 
 
-
 // ----------------------------------------------------------------------------------------------------
+//* -----------------------------------
 
+// function drawCharacter() { // original version ---
+//   ctx.drawImage(displayFoodImg, 1 * box, 0.5 * box, box, box);
+//     ctx.fillStyle = 'white';
+//     ctx.textAlign = 'center';
+//     ctx.textBaseline = 'bottom';
+//     ctx.font = '45px Verdana';
+//     ctx.fillText(score, 3 * box, 1.5 * box);
+//   ctx.drawImage(bugImg, bug.x, bug.y, box + 10, box); // dinosaur
+//   for (let i = 0; i < snake.length; i++) {
+//     ctx.fillStyle = (i === 0) ? 'green' : 'white'; // *
+//     ctx.beginPath();
+//     ctx.arc(snake[i].x, snake[i].y, 25, 0, 2 * Math.PI);
+//     ctx.fill();
+//     ctx.fillStyle ='darkGreen'; 
+//     ctx.fillRect(snake[i].x, snake[i].y, box, box);
+//     ctx.strokeStyle = 'yellowGreen';
+//     ctx.strokeRect(snake[i].x, snake[i].y, box, box);
+//   }
+// }
 
+//* -----------------------------------
 
 
 
