@@ -11,6 +11,10 @@
   vertical-align: baseline;
   user-select: none;
   -webkit-user-select: none;
+  overscroll-behavior-y: none;
+  touch-action: manipulation;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 *:not(summary) { 
