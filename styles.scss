@@ -19,6 +19,7 @@
 // smartPhone size ---
 
 
+
 body {
   font-family: 'Fredoka-One';
   background-color: #333;
@@ -169,6 +170,9 @@ body {
       justify-content: center;
       align-items: center;
       font-size: 40px;
+      &.active {
+        background-color: rgb(235, 235, 235); 
+      }
     }
     .btn-wrapper {
       display: flex;
@@ -184,8 +188,11 @@ body {
       font-weight: bold;
       color: #fff;
       background-color: skyblue; 
-      border: 3px solid skyblue;
+      border: none;
       padding-bottom: 5px;
+      &.active {
+        background-color: #3ec8ff; 
+      }
     }
   }
   .monster {

@@ -464,6 +464,7 @@ function stopBgmHowl_wallBugCollision() {
   btns.forEach(btn => {
     btn.addEventListener('touchstart', () => {
       if(!gameOver && startBgm) {
+        if(!btn.classList.contains('btn-replay')) { btn.classList.add('active')}
         if(btn.classList.contains('btn-top') && d !== 'DOWN') {
           d = 'UP'; gameStart = true; lostSound = false; 
           snakeHowl.stop(); snakeHowl.play();
@@ -484,7 +485,7 @@ function stopBgmHowl_wallBugCollision() {
       if(btn.classList.contains('btn-replay')) {
         clearInterval(iid_fadeBgmHowl);
         btn.textContent = 'replay';
-        if(!startBgm && !gameOver) { playHowl.play()}
+        if(!startBgm && !gameOver) { playHowl.play(); btn.classList.add('active')}
         if(!startBgm) { fadeId_bgmHowl = bgmHowl.play() }
         startBgm = true;
         if(isReplay && gameOver) { 
@@ -503,11 +504,22 @@ function stopBgmHowl_wallBugCollision() {
           placeCharacter();
           bugLostSound.classList.remove('js_blank');
           wallLostSound.classList.remove('js_blank');
-          if(startBgm && !gameOver) { playHowl.play()}
+          if(startBgm && !gameOver) { playHowl.play(); btn.classList.add('active')}
         }
       }
     });
   });
+
+  btns.forEach(btn => {
+    btn.addEventListener('touchend', () => {
+      btn.classList.remove('active');
+    });
+  })
+
+
+
+
+
 
   document.body.addEventListener('click', e => e.preventDefault());
   document.body.addEventListener('dblclick', e => e.preventDefault());
