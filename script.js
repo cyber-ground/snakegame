@@ -109,13 +109,16 @@ const canvas = document.getElementById('canvas');
         wallLostSound.src = 'audio/wallLost.mp3'
       const eatFoodSound = new Audio();
         eatFoodSound.src = 'audio/eat.wav';
-  const data = [];
-    const box = 50;
+    var bgmHowl = new Howl({src: ['mp3/bgm.mp3'], loop: true, volume: 0.3});
+      var snakeHowl = new Howl({src: ['mp3/snake.mp3'], loop: true, volume: 0.6});
+        var playHowl = new Howl({src: ['mp3/play.mp3'], volume: 0.6});
 
-  var bgmHowl = new Howl({src: ['mp3/bgm.mp3'], loop: true, volume: 0.3});
-  var snakeHowl = new Howl({src: ['mp3/snake.mp3'], loop: true, volume: 0.6});
+
 
 //* create data -------------
+
+const data = [];
+  const box = 50;
 
 function createData() {
   for (let row = 0; row < 19; row++) {
@@ -265,6 +268,7 @@ function snakeDirection(e) {
   }
   if(e.key === 's') { //* replay ---
     clearInterval(iid_fadeBgmHowl);
+    if(!startBgm && !gameOver) { playHowl.play()}
     if(!startBgm && !gameOver) { fadeId_bgmHowl = bgmHowl.play()}
     if(gameOver) { bgmHowl.volume(0.3)}
     startBgm = true;
@@ -286,9 +290,11 @@ function snakeDirection(e) {
       placeCharacter();
       bugLostSound.classList.remove('js_blank');
       wallLostSound.classList.remove('js_blank');
+      if(startBgm && !gameOver) { playHowl.play()}
     }
   }
 }
+
 
 //* event func -----------------------------------
 
@@ -478,6 +484,7 @@ function stopBgmHowl_wallBugCollision() {
       if(btn.classList.contains('btn-replay')) {
         clearInterval(iid_fadeBgmHowl);
         btn.textContent = 'replay';
+        if(!startBgm && !gameOver) { playHowl.play()}
         if(!startBgm) { fadeId_bgmHowl = bgmHowl.play() }
         startBgm = true;
         if(isReplay && gameOver) { 
@@ -496,15 +503,24 @@ function stopBgmHowl_wallBugCollision() {
           placeCharacter();
           bugLostSound.classList.remove('js_blank');
           wallLostSound.classList.remove('js_blank');
+          if(startBgm && !gameOver) { playHowl.play()}
         }
       }
     });
   });
 
-window.addEventListener('resize', () => {
-  if(innerWidth < 431) { window.location.reload()}
-});
+  document.body.addEventListener('click', e => e.preventDefault());
+  document.body.addEventListener('dblclick', e => e.preventDefault());
+  document.body.addEventListener('touchstart', e => e.preventDefault());
+  canvas.addEventListener('click', e => e.preventDefault());
+  btns.forEach(btn => { btn.addEventListener('touchstart', e => e.preventDefault())});
+  btns.forEach(btn => { btn.addEventListener('dblclick', e => e.preventDefault())});
+  const btnUnit = document.querySelector('.btn-unit');
+  btnUnit.addEventListener('touchstart', e => e.preventDefault());
 
+  window.addEventListener('resize', () => {
+    if(innerWidth < 431) { window.location.reload()}
+  });
 
 
 // ----------------------------------------------------------------------------------------------------
