@@ -25,7 +25,16 @@ body {
   background-color: #333;
   background-color: rgb(197, 242, 63);
   background-color: rgba(31, 172, 237, 0.214);
+  height: 100dvh;
   overflow: hidden;
+}
+
+.container {
+  width: 100%;
+  height: 100%;
+  @media(max-width: 430px) {
+    padding-top: 20px;
+  }
 }
 
 @media(min-width: 431px) {
@@ -75,7 +84,7 @@ body {
     background-color: #fff;
     // background-color: hsl(181, 95%, 64%);
     // background-color:rgb(244, 117, 19);
-    margin: 50px auto;
+    margin: 50px auto; // bc50px
     border-radius: 20px;
   }
   .btn-unit, .monster {
@@ -153,11 +162,11 @@ body {
     width: 365px;
     height: 365px;
     // margin: $top auto;  // bc50
-    margin: 20px auto;
+    margin: 0 auto; // bc20px
     border-radius: 20px;
   }
   .btn-unit {
-    margin-top: 0px;
+    margin-top: 20px; 
     .btn {
       width: 100px;
       height: 50px;

@@ -1,6 +1,7 @@
 'use strict';
 
-
+import {console_color,console_red,console_orange,console_yellow,console_green,
+  console_blue,console_purple,console_magenta,console_cyan} from './logColor.js';
 
 
 // ------------------------------------------------------------------------------------
@@ -89,7 +90,7 @@
 //*                             ----- SNAKE GAME -----
 // ------------------------------------------------------------------------------------
 
-
+const container = document.querySelector('.container');
 const canvas = document.getElementById('canvas');
   const ctx = canvas.getContext('2d');
   const msg = document.querySelector('.msg');
@@ -111,9 +112,7 @@ const canvas = document.getElementById('canvas');
         eatFoodSound.src = 'audio/eat.wav';
     var bgmHowl = new Howl({src: ['mp3/bgm.mp3'], loop: true, volume: 0.3});
       var snakeHowl = new Howl({src: ['mp3/snake.mp3'], loop: true, volume: 0.6});
-        var playHowl = new Howl({src: ['mp3/play.mp3'], volume: 0.6});
-
-
+    var playHowl = new Howl({src: ['mp3/play.mp3'], volume: 0.6});
 
 //* create data -------------
 
@@ -184,7 +183,6 @@ let snake = [];
       let gameOver = false; 
     let gameStart = false;
   let lostSound = false;
-  let restart = false;
   let isReplay = false;
   let startBgm = false;
   let fadeId_bgmHowl;
@@ -294,7 +292,6 @@ function snakeDirection(e) {
     }
   }
 }
-
 
 //* event func -----------------------------------
 
@@ -458,9 +455,10 @@ function stopBgmHowl_wallBugCollision() {
   }, 10000);
 }
 
-//* btn event -----------------------------
+//* btn & container event -----------------------------
 
-  const btns = document.querySelectorAll('.btn');
+container.addEventListener('touchstart', e => e.preventDefault());
+const btns = document.querySelectorAll('.btn');
   btns.forEach(btn => {
     btn.addEventListener('touchstart', () => {
       if(!gameOver && startBgm) {
@@ -508,32 +506,10 @@ function stopBgmHowl_wallBugCollision() {
         }
       }
     });
-  });
-
-  btns.forEach(btn => {
     btn.addEventListener('touchend', () => {
       btn.classList.remove('active');
     });
-  })
-
-
-
-
-
-
-  document.body.addEventListener('click', e => e.preventDefault());
-  document.body.addEventListener('dblclick', e => e.preventDefault());
-  document.body.addEventListener('touchstart', e => e.preventDefault());
-  canvas.addEventListener('click', e => e.preventDefault());
-  btns.forEach(btn => { btn.addEventListener('touchstart', e => e.preventDefault())});
-  btns.forEach(btn => { btn.addEventListener('dblclick', e => e.preventDefault())});
-  const btnUnit = document.querySelector('.btn-unit');
-  btnUnit.addEventListener('touchstart', e => e.preventDefault());
-
-  window.addEventListener('resize', () => {
-    if(innerWidth < 431) { window.location.reload()}
   });
-
 
 // ----------------------------------------------------------------------------------------------------
 //* -----------------------------------
